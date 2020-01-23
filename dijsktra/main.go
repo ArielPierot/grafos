@@ -9,20 +9,17 @@ import (
 	"strings"
 )
 
-var V int
+var V, operacoes int
 
 func main() {
 
 	var array [][]int
 
 	arquivoEntrada := os.Args[1] // Entrada
-	//arquivoSaida := os.Args[2]   // Saída
 
 	array, V = entraArquivo(arquivoEntrada, array)
 
 	dijsktra(array, 0)
-
-	//salvarResultado(arquivoSaida, array)
 }
 
 func distanciaMin(distArray []int, isLower []bool) int {
@@ -31,6 +28,7 @@ func distanciaMin(distArray []int, isLower []bool) int {
 
 	for i := 0; i < V; i++ {
 		if isLower[i] == false && distArray[i] <= min {
+			operacoes++
 			min = distArray[i]
 			min_index = i
 		}
@@ -56,6 +54,7 @@ func dijsktra(grafo [][]int, origem int){
 
 		for p:=0; p<V; p++ {
 			if !isLower[p] && grafo[u][p] != 0 && dist[u] != math.MaxInt32 && dist[u] + grafo[u][p] < dist[p] {
+				operacoes++
 				dist[p] = dist[u] + grafo[u][p]
 			}
 		}
@@ -87,23 +86,11 @@ func entraArquivo(arquivoEntrada string, array [][]int) ([][]int, int) {
 	return array, MAX
 }
 
-//func salvarResultado(arquivoSaida string, array [][]int){
-//	f, _ := os.Create(arquivoSaida)
-//	w := bufio.NewWriter(f)
-//	for _, v := range array {
-//		w.WriteString("|")
-//		for _, m := range v {
-//			w.WriteString(strconv.Itoa(m)+"|")
-//			w.Flush()
-//		}
-//		w.WriteString("\r\n")
-//	}
-//	f.Close()
-//}
-
 func exibirSolucao(dist []int)  {
 	fmt.Println("Vértice \t Distância do vértice")
 	for i:=0; i < V; i++ {
 		fmt.Println(i, "\t\t",dist[i])
 	}
+
+	fmt.Println("Operações: " + strconv.Itoa(operacoes))
 }
