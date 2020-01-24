@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd3d3900-c74d-40f7-abcd-08644dfe057d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/input" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +34,31 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="bellmanford" />
+      <go_parameters value="-i" />
+      <parameters value="input" />
+      <kind value="FILE" />
+      <filePath value="main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="bellmanford" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <parameters value="input" />
+      <kind value="FILE" />
+      <filePath value="main.go" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -48,5 +74,31 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="457" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579825251766">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="457" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/70.27.1850.1053@70.27.1850.1053" timestamp="1579825251766" />
+    <state width="1804" height="275" key="GridCell.Tab.0.bottom" timestamp="1579828336198">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="275" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1579828336198" />
+    <state width="1804" height="275" key="GridCell.Tab.0.center" timestamp="1579828336198">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="275" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1579828336198" />
+    <state width="1804" height="275" key="GridCell.Tab.0.left" timestamp="1579828336197">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="275" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1579828336197" />
+    <state width="1804" height="275" key="GridCell.Tab.0.right" timestamp="1579828336198">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="275" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1579828336198" />
+    <state x="392" y="314" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1579828377439">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="392" y="314" key="vcs.ApplyPatchDifferentiatedDialog/70.27.1850.1053@70.27.1850.1053" timestamp="1579828377438" />
   </component>
 </project>

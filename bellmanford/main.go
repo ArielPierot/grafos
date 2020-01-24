@@ -3,50 +3,101 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
 )
 
-var V int
+var V, operacoes int
 
+type vertice struct {
+	origem, destino, peso int
+}
+
+type grafos struct {
+	vert [] vertice
+}
 
 func main() {
 
-	var array [][]int
-	arquivoEntrada := os.Args[1] // Entrada
+	var grafo grafos
 
-	array, V = entraArquivo(arquivoEntrada, array)
+	arquivoEntrada := os.Args[1] // Entrada -- O primeiro argumento entra como parametro da localização do arquivo de entrada
 
-	//dijsktra(array, 0)
+	V = entraArquivo(arquivoEntrada, &grafo)
+
+	bellmanFord(grafo, 0) // entrada do array e o vértice de origem
 }
 
-func exibirSolucao(dist []int)  {
-	fmt.Println("Vértice \t Distância do vértice")
-	for i:=0; i < V; i++ {
-		fmt.Println(i, "\t\t",dist[i])
-	}
-}
-
-func entraArquivo(arquivoEntrada string, array [][]int) ([][]int, int) {
+func entraArquivo(arquivoEntrada string, grafo *grafos) (int) {
 	arquivo, _ := os.Open(arquivoEntrada)
 	scanner := bufio.NewScanner(arquivo)
 	var MAX int
+	verticeOrigem := 0
 
 	for scanner.Scan() {
 		MAX++
 		input := scanner.Text()
-		arraySeparado := strings.Split(input,",")
+		arraySeparado := strings.Split(input, ",")
 
-		var linha []int
+		verticeDestino := 0
 
 		for _, v := range arraySeparado {
-			s, _ := strconv.Atoi(v);
-			linha = append(linha, s)
+			s, _ := strconv.Atoi(v)
+			if s != 0 {
+				operacoes++
+				grafo.vert = append(grafo.vert, vertice{verticeOrigem, verticeDestino, s})
+			}
+			verticeDestino++
 		}
-		array = append(array, linha)
+
+		verticeOrigem++
 	}
 
 	arquivo.Close()
-	return array, MAX
+
+	return MAX
+}
+
+func bellmanFord(grafo grafos, origem int) {
+
+	dist := make([]int, V)
+
+	for i := 1; i < V; i++ {
+		dist[i] = math.MaxInt32
+	}
+
+	dist[origem] = 0
+
+	for i := 1; i < V - 1; i++{
+		for j := 0; j < V; j++ {
+			u := grafo.vert[j].origem
+			v := grafo.vert[j].destino
+			peso := grafo.vert[j].peso
+
+			if dist[u] != math.MaxInt32 && dist[u] + peso < dist[v] {
+				dist[v] = dist[u] + peso
+				operacoes++
+			}
+
+		}
+	}
+
+	exibirSolucao(dist)
+}
+
+func exibirSolucao(dist []int) {
+	fmt.Println("Vértice \t Distância da origem")
+	for i := 0; i < V; i++ {
+
+		if dist [i] == math.MaxInt32 {
+			fmt.Println(i, "\t\t inf.")
+		} else {
+			fmt.Println(i, "\t\t", dist[i])
+		}
+
+	}
+
+	fmt.Println("Operações: " + strconv.Itoa(operacoes))
 }
