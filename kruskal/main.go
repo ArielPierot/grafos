@@ -16,11 +16,11 @@ type arestas struct {
 }
 
 type grafos struct {
-	a [] arestas
+	aresta [] arestas
 }
 
 type subconjuntos struct {
-	parente, classe int
+	adj, nivel int
 }
 
 func main() {
@@ -34,31 +34,29 @@ func main() {
 	grafo.kruskal()
 }
 
-func (a arestas) comparador(e arestas)  int {
-	return a.peso - e.peso
-}
-
 func procurar(scj []subconjuntos, i int) int {
-	if scj[i].parente != i {
-		scj[i].parente = procurar(scj, scj[i].parente)
+
+	operacoes++
+	if scj[i].adj != i {
+		scj[i].adj = procurar(scj, scj[i].adj)
 	}
 
-	return scj[i].parente
+	return scj[i].adj
 }
 
 func uniao(scj []subconjuntos, x int, y int){
 
-	raizX := procurar(scj, x)
-	raizY := procurar(scj, y)
+	resX := procurar(scj, x)
+	resY := procurar(scj, y)
 
-	if scj[raizX].classe < scj[raizY].classe {
-		scj[raizX].parente = raizY
-	} else if scj[raizX].classe > scj[raizY].classe {
-		scj[raizY].parente = raizX
-	}
-
-	if scj[raizX] == scj[raizY] {
-		scj[raizY].classe++
+	operacoes++
+	if scj[resX].nivel < scj[resY].nivel {
+		scj[resX].adj = resY
+	} else if scj[resX].nivel > scj[resY].nivel {
+		scj[resY].adj = resX
+	} else {
+		scj[resY].adj = resX
+		scj[resX].nivel++
 	}
 
 }
@@ -79,7 +77,7 @@ func entraArquivo(arquivoEntrada string, grafo *grafos) (int) {
 		for _, v := range arraySeparado {
 			s, _ := strconv.Atoi(v)
 			if s != 0 {
-				grafo.a = append(grafo.a, arestas{verticeOrigem, verticeDestino, s})
+				grafo.aresta = append(grafo.aresta, arestas{verticeOrigem, verticeDestino, s})
 			}
 			verticeDestino++
 		}
@@ -96,15 +94,15 @@ func (grafo grafos) kruskal() {
 
 	var resultado []arestas
 
-	scj := make([]subconjuntos, V)
+	var scj []subconjuntos
 
-	sort.Slice(grafo.a, func(i, j int) bool {
-		return grafo.a[i].peso < grafo.a[j].peso
+	sort.Slice(grafo.aresta, func(i, j int) bool {
+		return grafo.aresta[i].peso < grafo.aresta[j].peso
 	})
 
 	for j := 0; j < V; j++ {
 		resultado = append(resultado, arestas{})
-		scj = append(scj, subconjuntos{parente:j, classe:0})
+		scj = append(scj, subconjuntos{adj: j, nivel:0})
 	}
 
 	e, i := 0, 0
@@ -112,12 +110,13 @@ func (grafo grafos) kruskal() {
 	for e < V - 1 {
 
 		var proximaAresta arestas
-		proximaAresta = grafo.a[i]
+		proximaAresta = grafo.aresta[i]
 		i++
 
 		x := procurar(scj, proximaAresta.origem)
 		y := procurar(scj, proximaAresta.destino)
 
+		operacoes++
 		if x != y {
 			resultado[e] = proximaAresta
 			e++
@@ -131,9 +130,11 @@ func (grafo grafos) kruskal() {
 }
 
 func exibirSolucao(resultado []arestas) {
-	fmt.Println("Vértice de destino \t Peso")
-	for i := 0; i < V; i++ {
-		fmt.Println(resultado[i].destino," \t ", resultado[i].peso)
+	fmt.Println("V. Origem \tV. Destino \tPeso")
+	for i := 1; i < V; i++ {
+		 if resultado[i].peso != 0 {
+			fmt.Println(resultado[i].origem, " \t\t", resultado[i].destino, " \t\t", resultado[i].peso)
+		}
 	}
 
 	fmt.Println("Operações: " + strconv.Itoa(operacoes))

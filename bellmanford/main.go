@@ -46,7 +46,6 @@ func entraArquivo(arquivoEntrada string, grafo *grafos) (int) {
 		for _, v := range arraySeparado {
 			s, _ := strconv.Atoi(v)
 			if s != 0 {
-				operacoes++
 				grafo.a = append(grafo.a, aresta{verticeOrigem, verticeDestino, s})
 			}
 			verticeDestino++
@@ -76,9 +75,9 @@ func bellmanFord(grafo grafos, origem int) {
 			v := grafo.a[j].destino
 			peso := grafo.a[j].peso
 
+			operacoes++
 			if dist[u] != math.MaxInt32 && dist[u] + peso < dist[v] {
 				dist[v] = dist[u] + peso
-				operacoes++
 			}
 
 		}
@@ -92,7 +91,7 @@ func exibirSolucao(dist []int) {
 	for i := 0; i < V; i++ {
 
 		if dist [i] == math.MaxInt32 {
-			fmt.Println(i, "\t\t inf.")
+			fmt.Println(i, "\t\t ∞")
 		} else {
 			fmt.Println(i, "\t\t", dist[i])
 		}

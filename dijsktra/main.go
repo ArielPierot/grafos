@@ -27,8 +27,8 @@ func distanciaMin(distArray []int, isLower []bool) int {
 	min_index := -1
 
 	for i := 0; i < V; i++ {
+		operacoes++
 		if isLower[i] == false && distArray[i] <= min {
-			operacoes++
 			min = distArray[i]
 			min_index = i
 		}
@@ -48,13 +48,13 @@ func dijsktra(grafo [][]int, origem int) {
 
 	dist[origem] = 0
 
-	for contador := 0; contador < V; contador++ {
+	for j := 0; j < V; j++ {
 		u := distanciaMin(dist, isLower)
 		isLower[u] = true
 
 		for p := 0; p < V; p++ {
+			operacoes++
 			if !isLower[p] && grafo[u][p] != 0 && dist[u] != math.MaxInt32 && dist[u]+grafo[u][p] < dist[p] {
-				operacoes++
 				dist[p] = dist[u] + grafo[u][p]
 			}
 		}

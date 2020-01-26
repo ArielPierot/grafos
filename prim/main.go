@@ -19,16 +19,17 @@ func main() {
 
 	array, V = entraArquivo(arquivoEntrada, array)
 
-	dijsktra(array, 0) // entrada do array e o vértice de origem
+	prim(array) // entrada do array e o vértice de origem
 }
 
 func distanciaMin(distArray []int, isLower []bool) int {
+
 	min := math.MaxInt32
 	min_index := -1
 
 	for i := 0; i < V; i++ {
+		operacoes++
 		if isLower[i] == false && distArray[i] < min {
-			operacoes++
 			min = distArray[i]
 			min_index = i
 		}
@@ -36,7 +37,7 @@ func distanciaMin(distArray []int, isLower []bool) int {
 	return min_index
 }
 
-func dijsktra(grafo [][]int, origem int) {
+func prim(grafo [][]int) {
 
 	prt := make([]int, V)
 	dist := make([]int, V)
@@ -46,16 +47,16 @@ func dijsktra(grafo [][]int, origem int) {
 		isLower[i] = false
 	}
 
-	dist[origem] = 0
-	prt[origem] = -1
+	dist[0] = 0
+	prt[0] = -1
 
 	for c := 0; c < V - 1; c++ {
 		u := distanciaMin(dist, isLower)
 		isLower[u] = true
 
 		for p := 0; p < V; p++ {
+			operacoes++
 			if grafo[u][p] != 0 && isLower[p] == false && grafo[u][p] < dist[p]{
-				operacoes++
 				prt[p] = u
 				dist[p] = grafo[u][p]
 			}
@@ -89,9 +90,9 @@ func entraArquivo(arquivoEntrada string, array [][]int) ([][]int, int) {
 }
 
 func exibirSolucao(prt []int, grafo [][]int) {
-	fmt.Println("Aresta \t Peso")
+	fmt.Println("V. Origem \tV. Destino \tPeso")
 	for i := 1; i < V; i++ {
-		fmt.Println(prt[i], " - ", i, "\t\t", grafo[i][prt[i]])
+		fmt.Println(i, " \t\t", prt[i], " \t\t", grafo[i][prt[i]])
 	}
 
 	fmt.Println("Operações: " + strconv.Itoa(operacoes))
